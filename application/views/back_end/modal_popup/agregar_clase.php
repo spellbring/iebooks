@@ -6,10 +6,18 @@
     <form class="frmAddDiscount" role="form" method="post">
         <div class="row mb25">
             <div class="col-xs-12">
-                <label><i class="fa fa-inbox"></i> Nombre de la clase</label>
-                <input type="text" class="form-control" value="">
+                <label><i class="fa fa-inbox"></i>Usuario</label>
+                <select class="form-control" name="ajaxCmbTipo">
+                    <option value="0">Seleccione el usuario para la clase.</option>
+                </select>
             </div>
             
+        </div>
+        <div class="row mb25">
+            <div class="col-xs-12">
+                <label>M&aacute;xima cantidad de alumnos</label>
+                 <input type="text" class="form-control"  value="">
+            </div>    
         </div>
         
     </form>

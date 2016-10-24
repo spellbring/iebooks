@@ -13,9 +13,7 @@
         <!-- /toggle offscreen menu -->
 
         <!-- logo -->
-        <div class="brand-logo">
-          <img src="<?php echo base_url('assets/images/cmr.png'); ?>" height="15" alt="">
-        </div>
+       
         <!-- /logo -->
 
         <!-- toggle chat sidebar small screen-->

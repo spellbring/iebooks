@@ -15,6 +15,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2>Cuentos Disponibles</h2>
+                 
                     <hr class="star-primary">
                 </div>
             </div>
@@ -24,7 +25,7 @@
                         <div class="caption">
                            
                         </div>
-                        <img src="assets/template/img/portfolio/cabin.png" class="img-responsive" alt="">
+                        <img src="assets/template/img/portfolio/Cerdito.jpg" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">

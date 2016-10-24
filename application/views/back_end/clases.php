@@ -32,8 +32,8 @@
                                 <thead>
                                     <tr>
                                         <th width="30px"></th>
-                                        <th>Nombre de clase</th>
-                                        <th>Rango</th>
+                                        <th>Nombre Profesional</th>
+                                        <th>Cantidad de alumnos</th>
                                         <td width="30px"></td>
                                         <td width="30px"></td>
                                         <td width="30px"></td>
@@ -45,7 +45,7 @@
                                         <td>
                                             <img src="" data-toggle="tooltip" data-placement="top" title="" height="32" >
                                         </td>
-                                        <td>El cerdito valiente</td>
+                                        <td>Jaime Reyes</td>
                                         <td>4 a 6</td>
                                         <td>
                                             <center>
@@ -65,8 +65,8 @@
                                             <center>
                                                 <button class="btn btn-success btn-sm mr5 panel-remove" data-toggle="modal" data-target=".bs-modal-sm"
                                                         onclick="Global.prototype.modal_ajax('<?php echo base64_encode(1); ?>', 
-                                                                    'agregar_clases', '<?php echo base_url('clases/asignar_material'); ?>')"
-                                                    <i class="fa fa-plus-circle"></i>Asignar Material
+                                                                    'agregar_clases', '<?php echo base_url('clases/asignar'); ?>')"
+                                                    <i class="fa fa-plus-circle"></i>Asignar
                                                 </button>
                                             </center>
                                         </td>

@@ -28,7 +28,7 @@ Global.prototype.modal_ajax = function (value, element, url)
 
 Global.prototype.send_ajax = function (classFrm, url, btn, element)
 {
-    initLoad();
+//    initLoad();
     $("#" + btn).attr('disabled', 'disabled');
     
     var contentType = false;
@@ -68,6 +68,9 @@ Global.prototype.send_ajax = function (classFrm, url, btn, element)
             if ($.trim(arrayData[0]) === 'OK')
             {
                 $("#" + element).html(arrayData[1]);
+                 setTimeout(function() { location.reload(); },1500);
+                 
+                 
             }
             else
             {

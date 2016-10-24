@@ -73,16 +73,28 @@ class Clases extends CI_Controller{
        
      }
      
-     public function asignar_material(){
+     public function asignar(){
           $this->load->library('encrypt');
           $_datos = array();
           
           if ($this->input->is_ajax_request()) {
             if ($this->input->post('__MA__')) {
-                $this->load->view('back_end/modal_popup/asignar_material', $_datos);
+                $this->load->view('back_end/modal_popup/asignar', $_datos);
             } 
             }
             
+     }
+     
+     public function asignar_material(){
+         $this->load->library('encrypt');
+         $_datos = array();
+         
+         if($this->input->is_ajax_request()){
+            
+                 $view = $this->load->view('back_end/modal_popup/modal_exito', '', true);
+                 echo 'OK&' . $view;
+            
+         }
      }
      
      

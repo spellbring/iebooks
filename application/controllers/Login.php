@@ -69,7 +69,9 @@ class Login extends CI_Controller {
                     $data = array(
                         'sess_authenticado' => TRUE, 
                         'sess_nombre_admin' => $objUser->nombre_p, 
-                        'sess_apellido_admin' => $objUser->apellido_p, 
+                        'sess_apellido_admin' => $objUser->apellido_p,
+                        'sess_perfil_user' => $objUser->perfil_idperfil,
+                        'sess_perfil_inst' => $objUser->institucion_idinstitucion
                     );
                     $this->session->set_userdata($data);
                     
