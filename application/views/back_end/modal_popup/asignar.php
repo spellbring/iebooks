@@ -4,68 +4,45 @@
 </div>
 <div class="modal-body">
     <form class="frmAddClass" role="form" method="post">
-       <div class="row">
-                <div class="col-sm-4 portfolio-item">
-                    <a>
+        <?php
+        if ($obj_material) {
+          
+            ?>
+            <div class="row">
+                  <div class="col-sm-12 portfolio-item">
+                      <select class="form-control" name="cmb_material">
+                          <option value="0">Seleccione un material interactivo</option>
+                          <?php foreach ($obj_material as $obj) {?>
+                          <option value="<?php echo $obj->idmaterial_interactivo ?>"> 
+                              <?php echo $obj->nombre_material ?> 
+                          </option>
+                          <?php } ?>
+                      </select>
+                  </div>
+               
+         <?php } ?>
+        </div>
+        <?php if($obj_clase_material){ ?>
+        <div class="row">
+            <?php foreach($obj_clase_material as $objm){ ?>
+                  <div class="col-sm-4 portfolio-item">
+                    <a href="assets/resources/media/animaciones/<?php echo $objm->material_interactivo_idmaterial_interactivo ?>.html" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
-                            <label for="check_1">La casa en el bosque</label>
-                            <input type="checkbox" id="check_1">
+                          <?php echo $objm->nombre_material ?>
                         </div>
-                        <img src="assets/template/img/portfolio/cabin.png" class="img-responsive" alt="">
+                        <img src="assets/template/img/portfolio/<?php echo $objm->material_interactivo_idmaterial_interactivo ?>.png" class="img-responsive" alt="">
                     </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a >
-                        <div class="caption">
-                           <label for="check_2">Pastelitos</label>
-                           <input type="checkbox" id="check_2">
-                        </div>
-                        <img src="assets/template/img/portfolio/cake.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a>
-                        <div class="caption">
-                           <label for="check_3">El circo divertido</label>
-                           <input type="checkbox" id="check_3">
-                        </div>
-                        <img src="assets/template/img/portfolio/circus.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a>
-                        <div class="caption">
-                            <label for="check_4">Las consolas</label>
-                            <input type="checkbox" id="check_4">
-                        </div>
-                        <img src="assets/template/img/portfolio/game.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a>
-                        <div class="caption">
-                            <label for="check_5">La caja fuerte</label>
-                            <input type="checkbox" id="check_5">
-                        </div>
-                        <img src="assets/template/img/portfolio/safe.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a>
-                        <div class="caption">
-                            <label for="check_6">El submarino amarillo</label>
-                            <input type="checkbox" id="check_6">
-                        </div>
-                        <img src="assets/template/img/portfolio/submarine.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-            </div>
+                  </div>
+            <?php } ?>
+        <?php } ?>
+        </div>
+       
     </form>
 </div>
 <div class="modal-footer no-border">
     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
     <button type="button" id="ajaxBtnAdd" class="btn btn-primary" 
-             onclick="Global.prototype.send_ajax('frmAddClass'
-                , '<?php echo base_url('clases/asignar_material'); ?>'
-                , 'ajaxBtnAdd', 'agregar_clases')">Agregar</button>
+            onclick="Global.prototype.send_ajax('frmAddClass'
+                             , '<?php echo base_url('clases/asignar_material'); ?>'
+                             , 'ajaxBtnAdd', 'agregar_clases')">Agregar</button>
 </div>

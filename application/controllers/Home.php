@@ -8,9 +8,7 @@ class Home extends CI_Controller {
             redirect(base_url('login'));
             exit();
         }
-        $this->load->model('descuento_model');
-        $this->load->model('tarjeta_model');
-        $this->load->model('solicitud_model');
+        $this->load->model('clases_model');
         $this->load->library('calendar');
     }
 
@@ -49,7 +47,7 @@ class Home extends CI_Controller {
         //$_datos['plantilla']['countSolicitudesPendientes']  =  $this->solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
         // $_datos['plantilla']['objSolicitud'] = $this->solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
         //End: Objetos
-
+        $_datos['obj_material'] = $this->clases_model->getMaterial();
         $_datos['plantilla']['vista'] = 'index';
         $this->load->view('plantillas/plantilla_back', $_datos);
     }

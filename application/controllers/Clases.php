@@ -21,6 +21,8 @@ class Clases extends CI_Controller{
         }
          $this->current = 3;
           $this->load->library('form_validation');
+          $this->load->model('clases_model');
+            $this->load->model('usuarios_model');
     }
     
     public function index(){
@@ -53,11 +55,13 @@ class Clases extends CI_Controller{
             'vendor/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min',
             );
          $_datos['plantilla']['current_menu'] = $this->current;
-        $_datos['plantilla']['current_sub_menu'] = $this->current . 3;
+         $_datos['plantilla']['current_sub_menu'] = $this->current . 3;
         
          $_datos['plantilla']['titulo'] = 'I-Ebooks | Admin';
-         
          $_datos['plantilla']['vista'] = 'clases';
+         
+         $_datos['obj_clases_us'] = $this->clases_model->getClasesIns($this->session->userdata('sess_perfil_inst'));
+         
         $this->load->view('plantillas/plantilla_back', $_datos);
     }
     
@@ -66,11 +70,40 @@ class Clases extends CI_Controller{
         $_datos = array();
         
         if ($this->input->is_ajax_request()) {
-            if ($this->input->post('__MA__')) {
-                $this->load->view('back_end/modal_popup/agregar_clase', $_datos);
-            } 
-            }
+            
+             $_datos['obj_usuario'] = $this->usuarios_model->getUserIns($this->session->userdata('sess_perfil_inst'));
+             $this->load->view('back_end/modal_popup/agregar_clase', $_datos);
+        } 
+            
        
+     }
+     public function agregar_clase(){
+         $this->form_validation->set_rules('ajaxCmbUser', 'Usuario', 'trim|required|strip_tags');
+            if($this->input->post('ajaxCmbUser') == 0){
+                 echo "Debe seleccionar un usuario";
+                 exit();
+            }
+            $this->form_validation->set_rules('txt_cant_max', 'Cantidad', 'trim|required|strip_tags|numeric');
+              if($this->input->post('txt_cant_max') < 1){
+                 echo "Debe ingresar un numero mayor o igual a 0";
+                 exit();
+            }
+            $this->form_validation->set_rules('txt_descripcion', 'Descripción', 'trim|required|strip_tags');
+             if ($this->form_validation->run() === FALSE) {
+               echo str_replace('<p>', '', validation_errors());
+               exit();
+            }
+            
+            $objInsert = $this->clases_model->insert(
+                    $this->input->post('ajaxCmbUser'),
+                    $this->input->post('txt_descripcion'),
+                    $this->input->post('txt_cant_max')                    
+                    );
+            
+            if($objInsert){
+             $view = $this->load->view('back_end/modal_popup/modal_exito', '', true);
+             echo 'OK&' . $view;
+            }
      }
      
      public function asignar(){
@@ -78,21 +111,50 @@ class Clases extends CI_Controller{
           $_datos = array();
           
           if ($this->input->is_ajax_request()) {
-            if ($this->input->post('__MA__')) {
-                $this->load->view('back_end/modal_popup/asignar', $_datos);
-            } 
-            }
+              if ($this->input->post('__MA__')) {
+                   $id = base64_decode($this->security->xss_clean(strip_tags($this->input->post('__MA__'))));
+                   $this->session->set_userdata('sess_clase_id_edit',$id);
+                   $_datos['obj_material'] = $this->clases_model->getMaterial();
+                   $_datos['obj_clase_material'] = $this->clases_model->get_clase_material($id);
+                   $this->load->view('back_end/modal_popup/asignar', $_datos);
+                  
+                   
+              }
+                  
+          }
+ 
             
      }
      
      public function asignar_material(){
          $this->load->library('encrypt');
-         $_datos = array();
+        
          
          if($this->input->is_ajax_request()){
+            $this->form_validation->set_rules('cmb_material', 'Material Interactivo', 'trim|required|strip_tags');
+              if ($this->form_validation->run() === FALSE) {
+                    echo str_replace('<p>', '', validation_errors());
+                    exit();
+               }
+                $obj_cantidad = $this->clases_model->get_cantidad_material($this->input->post('cmb_material') 
+                                                                          ,$this->session->userdata('sess_clase_id_edit'));
+                if($obj_cantidad[0]->cantidad == 0){
+                    $objInsert = $this->clases_model->asign_clase_materal(
+                       $this->session->userdata('sess_clase_id_edit'),
+                       $this->input->post('cmb_material')                  
+                       );
+                    if($objInsert){
+                         $view = $this->load->view('back_end/modal_popup/modal_exito', '', true);
+                         echo 'OK&' . $view;
+                    }
+                }else{
+                    echo "Ya existe un material interactivo en esta clase";
+                    exit();
+                }
             
-                 $view = $this->load->view('back_end/modal_popup/modal_exito', '', true);
-                 echo 'OK&' . $view;
+               
+           
+                 
             
          }
      }

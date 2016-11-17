@@ -31,22 +31,23 @@
                             <table id="tblDescuentos"  class="table table-striped table-bordered datatables">
                                 <thead>
                                     <tr>
-                                        <th width="30px"></th>
+                                        <th>Id Usuario</th>
                                         <th>Nombre Profesional</th>
-                                        <th>Cantidad de alumnos</th>
+                                        <th>Descripci&oacute;n</th>
+                                        <th>Cantidad M&aacute;xima Alumnos</th>
                                         <td width="30px"></td>
                                         <td width="30px"></td>
                                         <td width="30px"></td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                          
-                                    <tr>
-                                        <td>
-                                            <img src="" data-toggle="tooltip" data-placement="top" title="" height="32" >
-                                        </td>
-                                        <td>Jaime Reyes</td>
-                                        <td>4 a 6</td>
+                                    <?php if($obj_clases_us){ ?>
+                                        <?php foreach($obj_clases_us as $obj){ ?>
+                                      <tr>
+                                        <td> <?php echo $obj->idusuario ?> </td>
+                                        <td><?php echo $obj->nombre_p.' '.$obj->apellido_p ?></td>
+                                        <td><?php echo $obj->descripcionclase ?></td>
+                                        <td><?php echo $obj->max_cant_alumn ?></td>
                                         <td>
                                             <center>
                                                 <button class="btn btn-info btn-sm mr5" data-toggle="modal" data-target=".bs-modal-sm">   
@@ -64,13 +65,16 @@
                                          <td>
                                             <center>
                                                 <button class="btn btn-success btn-sm mr5 panel-remove" data-toggle="modal" data-target=".bs-modal-sm"
-                                                        onclick="Global.prototype.modal_ajax('<?php echo base64_encode(1); ?>', 
+                                                        onclick="Global.prototype.modal_ajax('<?php echo base64_encode($obj->idclase); ?>', 
                                                                     'agregar_clases', '<?php echo base_url('clases/asignar'); ?>')"
                                                     <i class="fa fa-plus-circle"></i>Asignar
                                                 </button>
                                             </center>
                                         </td>
                                     </tr>
+                                        <?php }?>
+                                    <?php }?>
+                                    
                                    
                                 </tbody>
                             </table>
