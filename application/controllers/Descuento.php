@@ -12,11 +12,11 @@ class Descuento extends CI_Controller
             exit();
         }
         $this->load->library('form_validation');
-        $this->load->model('tarjeta_model');
-        $this->load->model('descuento_model');
+        $this->load->model('Tarjeta_model');
+        $this->load->model('Descuento_model');
         $this->load->helper('security');
         $this->load->helper('date');
-        $this->load->model('solicitud_model');
+        $this->load->model('Solicitud_model');
     }
 
     public function index()
@@ -59,9 +59,9 @@ class Descuento extends CI_Controller
         //End: Variables
 
         //Begin: Objetos
-        $_datos['plantilla']['objsDescuento'] = $this->descuento_model->getDescuentosAgregados($this->session->userdata(SESS_ID_CLIENTE));
-         $_datos['plantilla']['countSolicitudesPendientes']  =  $this->solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
-           $_datos['plantilla']['objSolicitud'] = $this->solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
+        $_datos['plantilla']['objsDescuento'] = $this->Descuento_model->getDescuentosAgregados($this->session->userdata(SESS_ID_CLIENTE));
+         $_datos['plantilla']['countSolicitudesPendientes']  =  $this->Solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
+           $_datos['plantilla']['objSolicitud'] = $this->Solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
 //End: Objetos
 
 
@@ -116,14 +116,14 @@ class Descuento extends CI_Controller
         //End: Variables
 
         //Begin: Objetos
-        $_datos['plantilla']['objsTarjeta'] = $this->tarjeta_model->getCards($this->session->userdata(SESS_ID_CLIENTE), TRUE);
-          $_datos['plantilla']['countSolicitudesPendientes']  =  $this->solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
+        $_datos['plantilla']['objsTarjeta'] = $this->Tarjeta_model->getCards($this->session->userdata(SESS_ID_CLIENTE), TRUE);
+          $_datos['plantilla']['countSolicitudesPendientes']  =  $this->Solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
         if ($this->session->userdata('sess_flash_id_tarjeta')) {
             $_datos['plantilla']['objsDescuento'] = $this->tienda_model->getTiendasDisponibles($this->session->userdata('sess_flash_id_tarjeta'));
         } else {
             $_datos['plantilla']['objsDescuento'] = FALSE;
         }
-          $_datos['plantilla']['objSolicitud'] = $this->solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
+          $_datos['plantilla']['objSolicitud'] = $this->Solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
         //End: Objetos
 
 
@@ -145,9 +145,9 @@ class Descuento extends CI_Controller
                 $id = base64_decode($this->security->xss_clean(strip_tags($this->input->post('__MA__'))));
 
                 $this->session->set_userdata('sess_flash_id_tienda', $id);
-                $objTienda = $this->descuento_model->getTienda($id);
+                $objTienda = $this->Descuento_model->getTienda($id);
                 $_datos['tienda'] = $objTienda[0]->nombre;
-                $_datos['objsTarjeta'] = $this->tarjeta_model->getCards($this->session->userdata(SESS_ID_CLIENTE), TRUE);
+                $_datos['objsTarjeta'] = $this->Tarjeta_model->getCards($this->session->userdata(SESS_ID_CLIENTE), TRUE);
                 $this->load->view('back_end/modal_popup/modal_descuento_add', $_datos);
             } else {
                 echo 'Error al intentar cargar la vista';
@@ -168,7 +168,7 @@ class Descuento extends CI_Controller
                 //$id = $this->encrypt->decode(base64_decode($this->security->xss_clean(strip_tags($this->input->post('__MA__')))));
 
                 $id_descuento = base64_decode($this->security->xss_clean(strip_tags($this->input->post('__MA__'))));
-                $objDescuento = $this->descuento_model->getDescuentosAgregados($this->session->userdata(SESS_ID_CLIENTE), $id_descuento);
+                $objDescuento = $this->Descuento_model->getDescuentosAgregados($this->session->userdata(SESS_ID_CLIENTE), $id_descuento);
 
                 if ($objDescuento) {
                     foreach ($objDescuento as $objDesc) {
@@ -293,7 +293,7 @@ class Descuento extends CI_Controller
             $fecha_termino = date_reverse($this->input->post('ajaxTxtHasta'), '/', '-');
 
 
-            $this->descuento_model->guardar_descuento($tarjeta,
+            $this->Descuento_model->guardar_descuento($tarjeta,
                 $this->input->post('ajaxPercentDiss'),
                 $this->session->userdata('sess_flash_id_tienda'),
                 $fecha_inicio,
@@ -365,7 +365,7 @@ class Descuento extends CI_Controller
             $fecha_termino = date_reverse($this->security->xss_clean(strip_tags($this->input->post('ajaxTxtHasta'))), '/', '-');
 
 
-            $this->descuento_model->modificar_descuento($this->session->userdata('sess_flash_id_descuento_edit'), $porcentaje, $fecha_inicio, $fecha_termino);
+            $this->Descuento_model->modificar_descuento($this->session->userdata('sess_flash_id_descuento_edit'), $porcentaje, $fecha_inicio, $fecha_termino);
             $this->session->unset_userdata('sess_flash_id_descuento_edit');
             $view = $this->load->view('back_end/modal_popup/modal_exito', '', true);
             echo 'OK&' . '<script>Global.prototype.setReloadPage(1);</script>' . $view;
@@ -395,14 +395,14 @@ class Descuento extends CI_Controller
 
             //echo $id_descuento; exit;
 
-            $this->load->model('descuento_model');
-            $descuento = $this->descuento_model->getDescuento($id_descuento);
+            $this->load->model('Descuento_model');
+            $descuento = $this->Descuento_model->getDescuento($id_descuento);
 
             if ($descuento) {
                 foreach ($descuento as $objDescuento) {
                     if ($objDescuento->id == $id_descuento) {
-                        $this->descuento_model->delete($id_descuento);
-                        $disscount = $this->descuento_model->getDescuento($id_descuento);
+                        $this->Descuento_model->delete($id_descuento);
+                        $disscount = $this->Descuento_model->getDescuento($id_descuento);
                         if (!$disscount) {
                             echo 'OK';
                         } else {

@@ -10,9 +10,9 @@ class Tarjeta extends CI_Controller {
             exit();
         }
         $this->load->library('form_validation');
-        $this->load->model('tarjeta_model');
+        $this->load->model('Tarjeta_model');
         $this->current = 2;
-                 $this->load->model('solicitud_model');
+                 $this->load->model('Solicitud_model');
     }
     
     public function index()
@@ -37,9 +37,9 @@ class Tarjeta extends CI_Controller {
         $_datos['plantilla']['current_menu'] = $this->current;
         $_datos['plantilla']['current_sub_menu'] = $this->current . 1;
         $_datos['plantilla']['titulo'] = 'AhoraDescuentos.com | Admin';
-        $_datos['plantilla']['objsTarjeta'] = $this->tarjeta_model->getCards($this->session->userdata(SESS_ID_CLIENTE));
-         $_datos['plantilla']['countSolicitudesPendientes']  =  $this->solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
-           $_datos['plantilla']['objSolicitud'] = $this->solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
+        $_datos['plantilla']['objsTarjeta'] = $this->Tarjeta_model->getCards($this->session->userdata(SESS_ID_CLIENTE));
+         $_datos['plantilla']['countSolicitudesPendientes']  =  $this->Solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
+           $_datos['plantilla']['objSolicitud'] = $this->Solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
 //End: Variables
         
         
@@ -67,9 +67,9 @@ class Tarjeta extends CI_Controller {
         $_datos['plantilla']['current_menu'] = $this->current;
         $_datos['plantilla']['current_sub_menu'] = $this->current . 2;
         $_datos['plantilla']['titulo'] = 'AhoraDescuentos.com | Admin';
-        $_datos['plantilla']['objsTipoTarjeta'] = $this->tarjeta_model->getTipoTarjeta();
-          $_datos['plantilla']['countSolicitudesPendientes']  =  $this->solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
-            $_datos['plantilla']['objSolicitud'] = $this->solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
+        $_datos['plantilla']['objsTipoTarjeta'] = $this->Tarjeta_model->getTipoTarjeta();
+          $_datos['plantilla']['countSolicitudesPendientes']  =  $this->Solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
+            $_datos['plantilla']['objSolicitud'] = $this->Solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
 //End: Variables
         
         
@@ -123,8 +123,8 @@ class Tarjeta extends CI_Controller {
 
             
             //echo 'OK'; exit();
-            $this->load->model('tarjeta_model');
-            $tarjeta = $this->tarjeta_model->guardar($this->session->userdata(SESS_ID_CLIENTE), strtoupper($this->input->post('txtNombre')), $this->input->post('cmbTipo'), $imagen);
+            $this->load->model('Tarjeta_model');
+            $tarjeta = $this->Tarjeta_model->guardar($this->session->userdata(SESS_ID_CLIENTE), strtoupper($this->input->post('txtNombre')), $this->input->post('cmbTipo'), $imagen);
             if($tarjeta)
             {
                 echo 'OK';
@@ -159,19 +159,19 @@ class Tarjeta extends CI_Controller {
             }
 
             
-            $this->load->model('tarjeta_model');
-            $tarjeta = $this->tarjeta_model->getCard($id_card);
+            $this->load->model('Tarjeta_model');
+            $tarjeta = $this->Tarjeta_model->getCard($id_card);
             if($tarjeta)
             {
-                $descuento = $this->tarjeta_model->getCardDescuento($id_card);
+                $descuento = $this->Tarjeta_model->getCardDescuento($id_card);
                 if(!$descuento)
                 {
                     foreach($tarjeta as $objTarjeta)
                     {
                         if(!$objTarjeta->publicada)
                         {
-                            $this->tarjeta_model->deleteCard($id_card);
-                            $cardExist = $this->tarjeta_model->getCard($id_card);
+                            $this->Tarjeta_model->deleteCard($id_card);
+                            $cardExist = $this->Tarjeta_model->getCard($id_card);
                             if(!$cardExist)
                             {
                                 @unlink('./assets/images/cards/'.$objTarjeta->imagen);
@@ -225,15 +225,15 @@ class Tarjeta extends CI_Controller {
             }
 
             
-            $this->load->model('tarjeta_model');
-            $tarjeta = $this->tarjeta_model->getCard($id_card);
+            $this->load->model('Tarjeta_model');
+            $tarjeta = $this->Tarjeta_model->getCard($id_card);
             if($tarjeta)
             {
                 foreach($tarjeta as $objTarjeta)
                 {
                     if(!$objTarjeta->publicada)
                     {
-                        $this->tarjeta_model->public_card($id_card);
+                        $this->Tarjeta_model->public_card($id_card);
                         echo 'OK';
                     }
                     else
@@ -271,15 +271,15 @@ class Tarjeta extends CI_Controller {
             }
 
             
-            $this->load->model('tarjeta_model');
-            $tarjeta = $this->tarjeta_model->getCard($id_card, 1);
+            $this->load->model('Tarjeta_model');
+            $tarjeta = $this->Tarjeta_model->getCard($id_card, 1);
             if($tarjeta)
             {
                 foreach($tarjeta as $objTarjeta)
                 {
                     if($objTarjeta->publicada)
                     {
-                        $this->tarjeta_model->public_card($id_card, 0);
+                        $this->Tarjeta_model->public_card($id_card, 0);
                         echo 'OK';
                     }
                     else

@@ -6,7 +6,7 @@ class Grafico extends CI_Controller {
         parent::__construct();
         //$this->load->model('Pais_model', 'PM');
         $this->current = 5;
-                 $this->load->model('solicitud_model');
+                 $this->load->model('Solicitud_model');
     }
 
     public function index()
@@ -32,8 +32,8 @@ class Grafico extends CI_Controller {
         $_datos['plantilla']['current_menu'] = 1;
         $_datos['plantilla']['current_sub_menu'] = 0;
         $_datos['plantilla']['titulo'] = 'AhoraDescuentos.com | Admin';
-     $_datos['plantilla']['countSolicitudesPendientes']  =  $this->solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));    
-       $_datos['plantilla']['objSolicitud'] = $this->solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
+     $_datos['plantilla']['countSolicitudesPendientes']  =  $this->Solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));    
+       $_datos['plantilla']['objSolicitud'] = $this->Solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
 //End: Variables
         
         
@@ -66,8 +66,8 @@ class Grafico extends CI_Controller {
         $_datos['plantilla']['current_menu'] = $this->current;
         $_datos['plantilla']['current_sub_menu'] = $this->current . 1;
         $_datos['plantilla']['titulo'] = 'AhoraDescuentos.com | Admin';
-         $_datos['plantilla']['countSolicitudesPendientes']  =  $this->solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
-                  $_datos['plantilla']['objSolicitud'] = $this->solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
+         $_datos['plantilla']['countSolicitudesPendientes']  =  $this->Solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
+                  $_datos['plantilla']['objSolicitud'] = $this->Solicitud_model->getSolicitudes(0, $this->session->userdata(SESS_ID_CLIENTE), 3);
 //End: Variables
         
         
@@ -95,7 +95,7 @@ class Grafico extends CI_Controller {
         $_datos['plantilla']['current_menu'] = $this->current;
         $_datos['plantilla']['current_sub_menu'] = $this->current . 2;
         $_datos['plantilla']['titulo'] = 'AhoraDescuentos.com | Admin';
-        $_datos['plantilla']['countSolicitudesPendientes']  =  $this->solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
+        $_datos['plantilla']['countSolicitudesPendientes']  =  $this->Solicitud_model->getSolicitudesCount(0,$this->session->userdata(SESS_ID_CLIENTE));
         //End: Variables
         
         

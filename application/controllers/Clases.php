@@ -21,8 +21,8 @@ class Clases extends CI_Controller{
         }
          $this->current = 3;
           $this->load->library('form_validation');
-          $this->load->model('clases_model');
-            $this->load->model('usuarios_model');
+          $this->load->model('Clases_model');
+            $this->load->model('Usuarios_model');
     }
     
     public function index(){
@@ -60,7 +60,7 @@ class Clases extends CI_Controller{
          $_datos['plantilla']['titulo'] = 'I-Ebooks | Admin';
          $_datos['plantilla']['vista'] = 'clases';
          
-         $_datos['obj_clases_us'] = $this->clases_model->getClasesIns($this->session->userdata('sess_perfil_inst'));
+         $_datos['obj_clases_us'] = $this->Clases_model->getClasesIns($this->session->userdata('sess_perfil_inst'));
          
         $this->load->view('plantillas/plantilla_back', $_datos);
     }
@@ -71,7 +71,7 @@ class Clases extends CI_Controller{
         
         if ($this->input->is_ajax_request()) {
             
-             $_datos['obj_usuario'] = $this->usuarios_model->getUserIns($this->session->userdata('sess_perfil_inst'));
+             $_datos['obj_usuario'] = $this->Usuarios_model->getUserIns($this->session->userdata('sess_perfil_inst'));
              $this->load->view('back_end/modal_popup/agregar_clase', $_datos);
         } 
             
@@ -94,7 +94,7 @@ class Clases extends CI_Controller{
                exit();
             }
             
-            $objInsert = $this->clases_model->insert(
+            $objInsert = $this->Clases_model->insert(
                     $this->input->post('ajaxCmbUser'),
                     $this->input->post('txt_descripcion'),
                     $this->input->post('txt_cant_max')                    
@@ -114,8 +114,8 @@ class Clases extends CI_Controller{
               if ($this->input->post('__MA__')) {
                    $id = base64_decode($this->security->xss_clean(strip_tags($this->input->post('__MA__'))));
                    $this->session->set_userdata('sess_clase_id_edit',$id);
-                   $_datos['obj_material'] = $this->clases_model->getMaterial();
-                   $_datos['obj_clase_material'] = $this->clases_model->get_clase_material($id);
+                   $_datos['obj_material'] = $this->Clases_model->getMaterial();
+                   $_datos['obj_clase_material'] = $this->Clases_model->get_clase_material($id);
                    $this->load->view('back_end/modal_popup/asignar', $_datos);
                   
                    

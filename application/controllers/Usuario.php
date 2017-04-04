@@ -11,8 +11,8 @@ class Usuario extends CI_Controller {
         }
          $this->current = 2;
           $this->load->library('form_validation');
-          $this->load->model('perfil_model');
-          $this->load->model('usuarios_model');
+          $this->load->model('Perfil_model');
+          $this->load->model('Usuarios_model');
     }
     
     public function index(){
@@ -51,7 +51,7 @@ class Usuario extends CI_Controller {
          $_datos['plantilla']['titulo'] = 'I-Ebooks | Admin';
          $_datos['plantilla']['vista'] = 'usuario';
          
-         $_datos['obj_user'] = $this->usuarios_model->getUserIns( $this->session->userdata('sess_perfil_inst'));
+         $_datos['obj_user'] = $this->Usuarios_model->getUserIns( $this->session->userdata('sess_perfil_inst'));
          
         $this->load->view('plantillas/plantilla_back', $_datos);
     }
@@ -63,7 +63,7 @@ class Usuario extends CI_Controller {
         $_datos = array();
         
         if ($this->input->is_ajax_request()) {
-              $_datos['objPerfil'] = $this->perfil_model->getPerfil();              
+              $_datos['objPerfil'] = $this->Perfil_model->getPerfil();              
               $this->load->view('back_end/modal_popup/agregar_usuario', $_datos);
             
         }
@@ -90,7 +90,7 @@ class Usuario extends CI_Controller {
                echo str_replace('<p>', '', validation_errors());
                exit();
             }
-         $objUser = $this->usuarios_model->check_user($this->input->post('txt_user'));
+         $objUser = $this->Usuarios_model->check_user($this->input->post('txt_user'));
          if($objUser){
            $usuario_checked = $objUser[0]->usuario;
             
@@ -102,7 +102,7 @@ class Usuario extends CI_Controller {
          
             $pass =  $this->input->post('txt_pass');
             $hash_pass = sha1($pass);       
-            $this->usuarios_model->insert(
+            $this->Usuarios_model->insert(
                 $this->input->post('txt_user'),
                 $hash_pass,
                 $this->input->post('txt_first_name'),
@@ -130,9 +130,9 @@ class Usuario extends CI_Controller {
         
         if ($this->input->is_ajax_request()) {
              if ($this->input->post('__MA__')) {
-               $_datos['objPerfil'] = $this->perfil_model->getPerfil(); 
+               $_datos['objPerfil'] = $this->Perfil_model->getPerfil(); 
                $id = base64_decode($this->security->xss_clean(strip_tags($this->input->post('__MA__'))));
-               $obj_user = $this->usuarios_model->getUserId($id);
+               $obj_user = $this->Usuarios_model->getUserId($id);
                 $this->session->set_userdata('sess_user_id_edit',$id);
                $_datos['obj_id'] = $id;
                $_datos['obj_usuario'] = $obj_user[0]->usuario;
@@ -167,7 +167,7 @@ class Usuario extends CI_Controller {
             $this->form_validation->set_rules('txt_first_s_name', 'Fecha Desde', 'trim|required|strip_tags');
             $this->form_validation->set_rules('txt_second_s_name', 'Fecha Hasta', 'trim|required|strip_tags');
             $this->form_validation->set_rules('txt_user', 'Usuario', 'trim|required|strip_tags');
-            $objUser = $this->usuarios_model->check_user($this->input->post('txt_user'));
+            $objUser = $this->Usuarios_model->check_user($this->input->post('txt_user'));
             if($objUser){
               $usuario_checked = $objUser[0]->usuario;
                if($usuario_checked != $this->input->post('txt_user'))
@@ -183,7 +183,7 @@ class Usuario extends CI_Controller {
                exit();
             }
             $pass =  $this->input->post('txt_pass');
-            $obj_user = $this->usuarios_model->getUserId($this->session->userdata('sess_user_id_edit'));
+            $obj_user = $this->Usuarios_model->getUserId($this->session->userdata('sess_user_id_edit'));
             $beforePass = $obj_user[0]->password;
             if($beforePass != $pass ){
                 $hash_pass = sha1($pass); 
@@ -194,7 +194,7 @@ class Usuario extends CI_Controller {
         
             
             //Update
-           $update =  $this->usuarios_model->update(
+           $update =  $this->Usuarios_model->update(
                 $this->session->userdata('sess_user_id_edit'),
                 $this->input->post('txt_user'),
                 $hash_pass,
@@ -236,7 +236,7 @@ class Usuario extends CI_Controller {
         
         if ($this->input->is_ajax_request()) {
             
-             $update =  $this->usuarios_model->update_down($id);
+             $update =  $this->Usuarios_model->update_down($id);
              if($update){
                  echo "OK"; 
              }
