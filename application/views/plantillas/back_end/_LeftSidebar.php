@@ -47,7 +47,7 @@
             <li <?php if ($current_sub_menu == 3) { ?>class="active"<?php } ?>>
                 <a href="<?php echo base_url('clases'); ?>">
                     <i class="fa fa-book"></i>
-                    <span>Crear Clase</span>
+                    <span>Clases</span>
                 </a>
             </li>
             <!-- /Clases -->	

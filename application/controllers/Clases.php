@@ -60,6 +60,7 @@ class Clases extends CI_Controller{
          $_datos['plantilla']['titulo'] = 'I-Ebooks | Admin';
          $_datos['plantilla']['vista'] = 'clases';
          
+
          $_datos['obj_clases_us'] = $this->Clases_model->getClasesIns($this->session->userdata('sess_perfil_inst'));
          
         $this->load->view('plantillas/plantilla_back', $_datos);
@@ -136,10 +137,10 @@ class Clases extends CI_Controller{
                     echo str_replace('<p>', '', validation_errors());
                     exit();
                }
-                $obj_cantidad = $this->clases_model->get_cantidad_material($this->input->post('cmb_material') 
+                $obj_cantidad = $this->Clases_model->get_cantidad_material($this->input->post('cmb_material') 
                                                                           ,$this->session->userdata('sess_clase_id_edit'));
                 if($obj_cantidad[0]->cantidad == 0){
-                    $objInsert = $this->clases_model->asign_clase_materal(
+                    $objInsert = $this->Clases_model->asign_clase_materal(
                        $this->session->userdata('sess_clase_id_edit'),
                        $this->input->post('cmb_material')                  
                        );

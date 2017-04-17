@@ -9,7 +9,7 @@
                                 <img src="<?php echo base_url('assets/images/buho_mediano.png'); ?>" style="height: 300px; width: 300px;"/>
                             </div>
 <!--                            <p class="text-center mb30">Bienvenido a <b>iebooks</b>, Ingrese sus datos para entrar.</p>-->
-                            <h1 class="text-center mb30"> I-EBOOKS </h1>
+                            <h1 class="text-center mb30">CU&Eacute;NTAME</h1>
                             
                             <div class="form-inputs">
                                 <input type="text" value="<?php echo $this->session->userdata('sess_user_admin'); ?>" name="txtUser" class="form-control input-lg" placeholder="Usuario">
