@@ -34,7 +34,7 @@ class Clases extends CI_Controller{
             );
         
          $_datos['plantilla']['js'] = array(
-            'scripts/functions/descuento',
+            'scripts/functions/clases',
             'scripts/functions/tarjeta',
             'scripts/functions/solicitudes',
             'scripts/pages/alert',
@@ -158,6 +158,36 @@ class Clases extends CI_Controller{
                  
             
          }
+     }
+     
+     public function eliminar(){
+     	if (!$this->input->post('__76d5336dec__')) {
+     		echo 'Error inesperado, si el error persiste comuniquese con nosotros. [cod: DC-D-02]';
+     		exit();
+     	}
+     	
+     	//$this->load->library('encrypt');
+     	//$id_descuento = $this->encrypt->decode(base64_decode(str_replace(' ', '+', $this->input->post('__76d5446dec__'))));
+     	$id = base64_decode(str_replace(' ', '+', $this->input->post('__76d5336dec__')));
+     	if (!$id) {
+     		echo 'Error inesperado, si el error persiste comuniquese con nosotros. [cod: DC-D-03]';
+     		exit();
+     	}
+     	$this->load->library('encrypt');
+     	
+     	
+     	if ($this->input->is_ajax_request()) {
+     		
+     		
+     		$update =  $this->Clases_model->update_down($id);
+     		if($update){
+     			echo "OK";
+     		}
+     		
+     		
+     		
+     		
+     	}
      }
      
      

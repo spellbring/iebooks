@@ -16,7 +16,9 @@ class clases_model extends CI_Model{
             'usuario_idusuario' => $id_usuario,
             'max_cant_alumn' => $max_alumnos,
             'cant_alum' => 0,
-            'descripcion' => $descripcion
+            'descripcion' => $descripcion,
+          	'vigencia' => 1
+          	
           );
           $this->db->insert('clase', $data);
         return true;
@@ -30,11 +32,13 @@ class clases_model extends CI_Model{
                 . ', c.cant_alum'
                 . ', a.nombre_p'
                 . ', a.apellido_p'
-                . ', i.descripcion as descripcionins')
+                . ', i.descripcion as descripcionins'
+        		. ', c.vigencia')
                 ->from('clase c')
                 ->join('usuario a', 'a.idusuario = c.usuario_idusuario', 'INNER')
                 ->join('institucion i','i.idinstitucion = a.institucion_idinstitucion', 'INNER')
-                ->where('i.idinstitucion',$id_institucion);
+                ->where('i.idinstitucion',$id_institucion)
+        		->where('c.vigencia', 1);
         return $this->db->get()->result();
     }
     
@@ -68,6 +72,18 @@ class clases_model extends CI_Model{
          $consulta = $this->db->get();
          return $consulta->result();
          
+    }
+    
+    public function update_down($id)
+    {
+    	$data = array(
+    			'vigencia' => 0,
+    	);
+    	
+    	$this->db->where('idclase', $id);
+    	$this->db->update('clase', $data);
+    	
+    	return TRUE;
     }
     
     
