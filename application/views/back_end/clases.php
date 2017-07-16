@@ -32,10 +32,11 @@
                                 <thead>
                                     <tr>
                                         <th>Id Usuario</th>
+                                         <td>Id Clase</td>
                                         <th>Nombre Profesional</th>
                                         <th>Descripci&oacute;n</th>
                                         <th>Cantidad M&aacute;xima Alumnos</th>
-                                        <td width="30px"></td>
+                                       
                                         <td width="30px"></td>
                                         <td width="30px"></td>
                                     </tr>
@@ -45,28 +46,27 @@
                                         <?php foreach($obj_clases_us as $obj){ ?>
                                       <tr>
                                         <td> <?php echo $obj->idusuario ?> </td>
+                                        <td> <?php echo $obj->idclase ?> </td>
                                         <td><?php echo $obj->nombre_p.' '.$obj->apellido_p ?></td>
                                         <td><?php echo $obj->descripcionclase ?></td>
                                         <td><?php echo $obj->max_cant_alumn ?></td>
-                                      	<td></td>
+                                      
                                         <td>
-                                            <center>
+                                           
                                                 <button class="btn btn-danger btn-sm mr5 panel-remove" id="<?php echo base64_encode($obj->idclase); ?>"
                                                   		data-toggle="delete-clase" 
                                                         data-url="<?php echo base_url('clases/eliminar'); ?>"
                                                         data-clase="<?php echo $obj->idclase; ?>">
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
-                                            </center>
+                                           
                                         </td>
                                          <td>
-                                            <center>
                                                 <button class="btn btn-success btn-sm mr5 panel-remove" data-toggle="modal" data-target=".bs-modal-sm"
                                                         onclick="Global.prototype.modal_ajax('<?php echo base64_encode($obj->idclase); ?>', 
                                                                     'agregar_clases', '<?php echo base_url('clases/asignar'); ?>')">
                                                     <i class="fa fa-plus-circle"></i>Asignar
-                                                </button>
-                                            </center>
+                                                </button>	
                                         </td>
                                     </tr>
                                         <?php }?>
